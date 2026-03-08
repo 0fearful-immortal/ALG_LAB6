@@ -665,3 +665,4 @@ int main()
 	screen_destroy();
 	return 0;
 }
+
