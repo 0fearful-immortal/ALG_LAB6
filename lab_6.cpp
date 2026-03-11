@@ -154,7 +154,8 @@ public:
 	point seast() const { return se; }
 	point nwest() const { return nw; }
 	point swest() const { return sw; }
-	void draw() {
+
+	void draw() override { 
 		try {
 			put_line(nw, ne); put_line(ne, se); put_line(se, sw); put_line(sw, nw);
 		}catch(const OutOfScreen& err) { std::cerr << "Trapezoid drawing error : " << err.what() << std::endl; }
@@ -166,7 +167,7 @@ public:
 			throw OutOfScreen();
 		}
 	}
-	void resize(double d) {
+	void resize(double d) override {
 		if (d <= 0) throw WrongParameters();
 		point c(
 			(nw.x + ne.x + se.x + sw.x) / 4,
@@ -197,7 +198,7 @@ public:
 		}
 	}
 
-	void rotate_left() {
+	void rotate_left() override {
 		point new_nw, new_ne, new_sw, new_se;
 		new_sw = rotate_point(nw, rotated::left);
 		new_nw = rotate_point(ne, rotated::left);
@@ -215,7 +216,7 @@ public:
 			throw;
 		}
 	}
-	void rotate_right() {
+	void rotate_right() override {
 		point new_nw, new_ne, new_sw, new_se;
 		new_ne = rotate_point(nw, rotated::right);
 		new_se = rotate_point(ne, rotated::right);
