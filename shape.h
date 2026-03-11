@@ -374,5 +374,15 @@ void up(shape& p, const shape& q) // поместить фигуру p над ф
 		throw WrongAttachment();
 	}
 
-	p.move(q_north.x - p_south.x, q_north.y - p_south.y + 1);
+	int dx = q_north.x - p_south.x;
+	int dy = q_north.y - p_south.y + 1;
+
+	// Если p – крестик, сдвигаем его ещё выше
+	if (dynamic_cast<ErrorShape*>(&p) != nullptr) {
+		dy += 2;   // подобранная величина, можно изменить при необходимости
+	}
+
+	p.move(dx, dy);
+
+	// p.move(q_north.x - p_south.x, q_north.y - p_south.y + 1); Если хотим чтобы приллегало вплотную (другой центр)
 }
