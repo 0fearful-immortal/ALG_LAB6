@@ -289,11 +289,6 @@ public:
 			throw OutOfScreen();
 		}
 	}
-	void resize(int d)
-	{
-		if (d <= 0) throw WrongParameters();
-		resize((double)d);
-	}
 	void resize(double d)
 	{
 		try {
