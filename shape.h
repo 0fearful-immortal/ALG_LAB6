@@ -204,7 +204,9 @@ protected:
 public:
 	rectangle(point a, point b) : sw(a), ne(b) {
 		if ((a.x == b.x) || (a.y == b.y)) throw WrongParameters();
-		if (a.x < 0 || a.y < 0 || b.x > XMAX || b.y > YMAX) {
+		if (a.x < 0 || a.y < 0 || a.x > XMAX || a.y > YMAX || 
+			b.x < 0 || b.y < 0 || b.x > XMAX || b.y > YMAX){
+			std::cout << "Throwing OutOfScreen" << std::endl;
 			throw OutOfScreen();
 		}
 	}
