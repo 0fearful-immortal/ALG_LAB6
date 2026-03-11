@@ -63,8 +63,15 @@ void down(shape& p, const shape& q) // поместить фигуру p под 
 	if (abs(p_width - q_width) > 30) {
 		throw WrongAttachment();
 	}
+	int dx = q_south.x - p_north.x;
+	int dy = q_south.y - p_north.y - 1;   // зазор снизу
 
-	p.move(q_south.x - p_north.x, q_south.y - p_north.y - 1);
+	if (dynamic_cast<ErrorShape*>(&p) != nullptr) {
+		dy -= 2;   // опускаем ниже
+	}
+
+	p.move(dx, dy);
+	// p.move(q_south.x - p_north.x, q_south.y - p_north.y - 1); Если хотим вплотную (другой центр)
 }
 // Cборная пользовательская фигура – физиономия
 
@@ -88,6 +95,11 @@ void left(shape& p, const shape& q) {
 		throw OutOfScreen();
 
 	// Если все проверки пройдены, выполняем перемещение
+
+	if (dynamic_cast<ErrorShape*>(&p) != nullptr) {
+		dx -= 3;
+	}
+
 	p.move(dx, dy);
 }
 
@@ -111,6 +123,9 @@ void right(shape& p, const shape& q) {
 		!on_screen(new_ne.x, new_sw.y) || !on_screen(new_sw.x, new_ne.y))
 		throw OutOfScreen();
 
+	if (dynamic_cast<ErrorShape*>(&p) != nullptr) {
+		dx += 3; 
+	}
 	p.move(dx, dy);
 }
 
@@ -484,7 +499,7 @@ int main()
     //== 1. Объявление набора фигур ==
     shape* hat = nullptr;
     try {
-        hat = new rectangle(point(0, 0), point(10, 5));
+        hat = new rectangle(point(0, 0), point(10, 500000));
     } catch (const ShapeException& err) {
         hat = new ErrorShape(point(5, 2));  // центр прямоугольника
         std::cerr << "Hat drawing error: " << err.what() << std::endl;
