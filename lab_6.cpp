@@ -1,4 +1,4 @@
-﻿// Пополнение и использование библиотеки фигур
+// Пополнение и использование библиотеки фигур
 #include <locale.h>
 #include <iostream>
 #include "screen.h"
@@ -195,11 +195,6 @@ public:
 			nw = old_nw; ne = old_ne; sw = old_sw; se = old_se;
 			throw WrongParameters();
 		}
-	}
-
-	void resize(int d) {
-		if (d <= 0) throw WrongParameters();
-		resize((double)d);
 	}
 
 	void rotate_left() {
@@ -534,7 +529,7 @@ int main()
 
     shape* l_ear = nullptr;
     try {
-        l_ear = new trapezoid(point(7, 40), point(108, 45), 5);
+        l_ear = new trapezoid(point(7, 40), point(18, 45), 5);
     }
     catch (const OutOfScreen& err) {
         l_ear = new ErrorShape(point(13, 42)); // примерный центр левого уха
@@ -665,4 +660,3 @@ int main()
 	screen_destroy();
 	return 0;
 }
-
